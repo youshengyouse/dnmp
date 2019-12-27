@@ -92,6 +92,8 @@ alias d1='docker exec -it c1 sh'
 alias d2='docker exec -it c2 sh'   # 如果想进入php服务器，命令行输入 d2 就行
 alias d3='docker exec -it c3 bash'
 alias d5='docker exec -it c5 sh'
+alias delc='docker rm -f `docker ps -aq`'       # 删除所有容器
+alias deli='docker rmi -f `docker images -aq`'  # 删除所有镜像
 ```
 
 
