@@ -66,7 +66,14 @@ cd /www/localhost
 composer update
 ```
 
-## 三：管理命令
+三：mysql
+
+mysql数据库放在宿主机上的，没有在容器中，方便管理，第一次启动后，文件夹`dnmp\data\mysql5`的内容如下
+
+![mysql](E:\www\tutorials\dnmp\imgs\mysql.png)
+
+## 五：管理命令
+
 #### 2.1 服务器启动和构建命令
 如需管理服务，请在命令后面加上服务器名称，例如：
 ```bash
