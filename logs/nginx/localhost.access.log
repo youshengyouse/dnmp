@@ -1,0 +1,2 @@
+172.18.0.1 - - [27/Dec/2019:14:46:38 +0800] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36" "-"
+172.18.0.1 - - [27/Dec/2019:14:46:39 +0800] "GET /favicon.ico HTTP/1.1" 404 548 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36" "-"

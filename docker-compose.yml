@@ -1,0 +1,141 @@
+# 容器名: nginx为c1, php为c2, mysql为c3, phpmyadmin为c4,redis为c5
+# 服务名: nginx为s1, php为s2，mysql为s3, phpmyadmin为s4,redis为s5
+# 这个文件如果有修改，请直接up相应服务就行，如修改了s2部分，就 docker-compose up -d s2
+# .env及本文件没有修改时，up -d s3,显示c3 is up-to-date，有修改时，显示 Recreating c3 ... done
+# docker images -q --filter "dangling=true" | xargs -t --no-run-if-empty docker rmido
+
+version: "3"
+services:
+  # ===================================================================== s1 nginx
+  s1:
+    build:
+      context: ./services/nginx
+      # 最后生成的容器中会用到，如果定义了s1.environment,会覆盖env_file中定义的系统环境变量
+      # env_file: ./services/nginx/.env
+      # 传到Dockerfile，在构建镜像时会用到，建完删除
+      args:
+        NGINX_VERSION: ${NGINX_VERSION}
+        CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
+        NGINX_INSTALL_APPS: ${NGINX_INSTALL_APPS}
+    container_name: c1
+
+    #extra_hosts:
+    #  - "www.daqi.com:192.168.0.104"
+    ports:
+      # http
+      - "${NGINX_HTTP_HOST_PORT}:80"
+      # https
+      - "${NGINX_HTTPS_HOST_PORT}:443"
+    volumes:
+      # 公共卷，会出现在各个容器中，与宿主机没有映射，是各容器之间的映射，适合通信，注意写法，与物理的映射不一样
+      - "hunan:/changsha"
+      # 宿主机物理地址映射到容器中，可以是目录，也可以是文件名，原镜像中如果有相同的，会覆盖
+      - ${NGINX_CONF_DIR}:/etc/nginx/sites:ro
+      - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
+      - ${NGINX_FASTCGI_PHP_CONF}:/etc/nginx/fastcgi-php.conf:ro
+      - ${NGINX_FASTCGI_PARAMS}:/etc/nginx/fastcgi_params:ro
+      - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
+      # ssl认证
+      - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
+      # 网站目录映射
+      - ${WWW_DIR}:/www:rw
+      - ../0000_laravel:/0000
+      - ../0001_vue:/0001:rw
+    # environment定义容器中用到环境变量，相当于装windows时要设置时区一样
+    environment:
+      TZ: "$TZ"
+    # 在Dockerfile中不用写ENTRYPOINT
+    restart: always
+    # 相同网络下的容器，相当于网上邻居
+    networks:
+      - youshengyouse
+  # ===================================================================== s2 php
+  s2:
+    build:
+      context: ./services/php
+      args:
+        PHP_VERSION: php:${PHP_VERSION}-fpm-alpine
+        CONTAINER_PACKAGE_URL: ${CONTAINER_PACKAGE_URL}
+        PHP_EXTENSIONS: ${PHP_EXTENSIONS}
+        TZ: "$TZ"
+    container_name: c2
+    # Swoole 端口
+    #expose:
+    #  - 9501
+    #extra_hosts:
+    #  - "www.daqi.com:192.168.0.104"
+    volumes:
+      # php-fpm也得有权限，否则报file not found,与nginx的404错误有点不一样，可通过响应中有没有X-Powered-By: PHP/7.2来判断
+      - ${WWW_DIR}:/www:rw
+      - ${PHP_SOCKET_DIR}:/var/run:rw
+      - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP_FPM_CONF_ZZ_FILE}:/usr/local/etc/php-fpm.d/zz-docker.conf:ro
+      - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+      - ${PHP_LOG_DIR}:/var/log/php
+      - ${DATA_DIR}/composer:/tmp/composer
+      # 没有会报 File not found. 错误，但 Response Headers中会有 X-Powered-By: PHP/7.2.19，表示问题出在php-fpm这里，它也得相相应目录的访问权限
+      - ../0000_laravel:/0000
+      #- ../0001_vue:/0001:rw
+      - "hunan:/changsha"
+      # unable to bind listening socket for address '/var/run/php7-fpm.sock': Operation not permitted (1)
+      #/usr/local/etc/php-fpm.d/zz-docker.conf
+    restart: always
+    cap_add:
+      - SYS_PTRACE
+    networks:
+      - youshengyouse
+
+  s3:
+    image: mysql:${MYSQL5_VERSION}
+    container_name: c3
+    ports:
+      - "${MYSQL5_HOST_PORT}:3306"
+    volumes:
+      # 配置文件
+      - ${MYSQL5_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      # 数据存放目录
+      - ${DATA_DIR}/mysql5:/var/lib/mysql/:rw
+    restart: always
+    networks:
+      - youshengyouse
+    # 如果密码修改了，即使删除了所有容器和镜像，仍会使用之前的，办法是清除掉缓存
+    # 想看是否修改，进入容器后，直接输入 env就可以看到,尽管看到环境变量修改了，但是还是报错 ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+    # 这与data/mysql5目录有关，已固化在宿主机上了
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL5_ROOT_PASSWORD}"
+      TZ: "$TZ"
+
+  s4:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: c4
+    ports:
+      - "${PHPMYADMIN_HOST_PORT}:80"
+    volumes:
+      - ${PHPMYADMIN_USER_CONF_FILE}:/etc/phpmyadmin/config.user.inc.php:ro
+      - ${PHPMYADMIN_PHP_CONF_FILE}:/usr/local/etc/php/conf.d/php-phpmyadmin.ini:ro
+    networks:
+      - youshengyouse
+    environment:
+      #- PMA_HOST=mysql
+      - PMA_HOST=s3
+      - PMA_PORT=3306
+      - TZ=$TZ
+
+  s5:
+    image: redis:${REDIS_VERSION}
+    container_name: c5
+    ports:
+      - "${REDIS_HOST_PORT}:6379"
+    volumes:
+      - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
+      - ${DATA_DIR}/redis:/data/:rw
+    restart: always
+    entrypoint: ["redis-server", "/etc/redis.conf"]
+    environment:
+      TZ: "$TZ"
+    networks:
+      - youshengyouse
+networks:
+  youshengyouse:
+volumes:
+  hunan:

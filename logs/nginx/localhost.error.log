@@ -1,0 +1,2 @@
+2019/12/27 14:46:39 [error] 7#7: *2 open() "/www/localhost/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2019/12/27 14:46:39 [error] 7#7: *2 open() "/www/localhost/404.html" failed (2: No such file or directory), client: 172.18.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
