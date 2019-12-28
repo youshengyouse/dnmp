@@ -17,25 +17,27 @@
 
 ## 一.准备工作
 
-1. 软件安装
+1. 编辑器选择，php建议使用phpstorm，js/css/html等使用vscode
+
+2. 软件安装
 
    - `git`,[官网下载](https://git-scm.com/)，windows 用户建议在`git bash`下工作
    - `Docker` ，[windows 上安装](https://docs.docker.com/docker-for-windows/install/)，[Linux 之 Ubuntu 上安装](https://docs.docker.com/install/linux/docker-ce/ubuntu/)，[Linux 之 Centos 上安装](https://docs.docker.com/install/linux/docker-ce/centos/) ，MacOS 上安装](https://docs.docker.com/docker-for-mac/install/)(系统要求：Linux(支持 centos,debian,ubuntu,fedora 等)，Windows 10 Build 15063+，或 MacOS 10.12+，且必须要`64`位）
    - `docker-compose 1.7.0+`，[参考官网安装](https://docs.docker.com/compose/install/)
 
-2. `clone`项目：
+3. `clone`项目：
 
    ```shell
    $ git git@gitee.com:advance/dnmp.git
    ```
 
-3. 如果不是`root`用户，还需将当前用户加入`docker`用户组：
+4. 如果不是`root`用户，还需将当前用户加入`docker`用户组：
 
    ```
    $ sudo gpasswd -a ${USER} docker
    ```
 
-4. 拷贝并命名配置文件（为了统一，windows 用户请在 git bash 下工作），启动：
+5. 拷贝并命名配置文件（为了统一，windows 用户请在 git bash 下工作），启动：
 
    ```shell
    $ cd dnmp
@@ -46,7 +48,7 @@
    # 如果只是服务的配置文件进行了修改，如nginx的nginx.conf修改了，请进入容器启动相应服务，如$ docker exec -it s1 nginx -s reload
    ```
 
-5. 在物理理(宿主机)浏览器中访问：
+6. 在物理理(宿主机)浏览器中访问：
 
    - http://localhost 或 https://localhost
 
@@ -88,6 +90,9 @@ mysql 数据库放在宿主机上的，没有在容器中，方便管理，第�
 
 ## 四：Nginx
 
+1. 修改host文件，增加如 `127.0.0.1 01.laravel.bendi`
+2. 配置nginx，增加配置文件` dnmp/services/nginx/conf/sites/laravel.conf`，后重启nginx,`docker exec -it s1 nginx -s reload`
+
 ## 五：管理命令
 
 #### 2.1 服务器启动和构建命令
@@ -95,18 +100,16 @@ mysql 数据库放在宿主机上的，没有在容器中，方便管理，第�
 如需管理服务，请在命令后面加上服务器名称，例如：
 
 ```bash
-$ docker-compose up                         # 创建并且启动所有容器
-$ docker-compose up -d                      # 创建并且后台运行方式启动所有容器
-$ docker-compose up s1 s2 s3         # 创建并且启动nginx、php、mysql的多个容器
+$ docker-compose up                 # 创建并且启动所有容器
+$ docker-compose up -d              # 创建并且后台运行方式启动所有容器
+$ docker-compose up s1 s2 s3        # 创建并且启动nginx、php、mysql的多个容器
 $ docker-compose up -d s1 s2 s3     # 创建并且已后台运行的方式启动nginx、php、mysql容器
-
-$ docker-compose start s2                  # 启动服务
-$ docker-compose stop s2                   # 停止服务
-$ docker-compose restart s2                # 重启服务
-$ docker-compose build s2                  # 构建或者重新构建服务
-
-$ docker-compose rm s2                     # 删除并且停止php容器
-$ docker-compose down                       # 停止并删除容器，网络，图像和挂载卷
+$ docker-compose start s2           # 启动服务
+$ docker-compose stop s2            # 停止服务
+$ docker-compose restart s2         # 重启服务
+$ docker-compose build s2           # 构建或者重新构建服务
+$ docker-compose rm s2              # 删除并且停止php容器
+$ docker-compose down               # 停止并删除容器，网络，图像和挂载卷
 ```
 
 #### 3.2 添加快捷命令
