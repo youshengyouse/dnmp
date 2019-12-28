@@ -1,11 +1,19 @@
-DNMP（Docker + Nginx + MySQL5.7 + PHP7.2(预装了 composer) + Redis）网站部署
+# Laravel+Vue开发前后端分离网站
 
-> aravel 官方推荐的使用[homestead](https://learnku.com/docs/laravel/6.x/homestead/5127)或[valet](https://learnku.com/docs/laravel/6.x/valet/5128)来搭建开发环境，我个人建议基于 docker 搭建开发环境。想成为一名 laravel 大神，请加 QQ:768287201，验证输入 laravel
+——DNMP开发环境搭建（Docker + Nginx + MySQL5.7 + PHP7.2(预装了 composer) + Redis）
 
-[**[GitHub 地址]**](https://github.com/youshengyouse/dnmp) -
-[**[Gitee 地址]**](https://gitee.com/advance/dnmp)
+> laravel 官方推荐的使用[homestead](https://learnku.com/docs/laravel/6.x/homestead/5127)或[valet](https://learnku.com/docs/laravel/6.x/valet/5128)来搭建开发环境，我建议基于 docker 搭建开发环境更方便。
+> 请加 `QQ:2922800186`，验证输入 laravel
+>
+> 本架构文件适用于**Windows、Linux、MacOs**
 
-**Windows、Linux、MacOs**皆可用
+本教程[配套视频](https://www.bilibili.com/)
+
+[**GitHub 地址**](https://github.com/youshengyouse/dnmp)      [**Gitee 地址**](https://gitee.com/advance/dnmp)
+
+![laravel](./imgs/laravel.jpg)   ![vue](./imgs/vue.png)
+
+
 
 ## 一.准备工作
 
@@ -77,6 +85,8 @@ composer update
 mysql 数据库放在宿主机上的，没有在容器中，方便管理，第一次启动后，文件夹`dnmp\data\mysql5`的内容如下
 
 ![mysql](./imgs/mysql.png)
+
+## 四：Nginx
 
 ## 五：管理命令
 
