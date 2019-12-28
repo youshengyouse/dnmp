@@ -95,7 +95,7 @@ mysql 数据库放在宿主机上的，没有在容器中，方便管理，第�
 
 ## 五：管理命令
 
-#### 2.1 服务器启动和构建命令
+#### 5.1 服务器启动和构建命令
 
 如需管理服务，请在命令后面加上服务器名称，例如：
 
@@ -112,7 +112,7 @@ $ docker-compose rm s2              # 删除并且停止php容器
 $ docker-compose down               # 停止并删除容器，网络，图像和挂载卷
 ```
 
-#### 3.2 添加快捷命令
+#### 5.2 添加快捷命令
 
 为了提高效率，对于使用频率较高的命令，写成别名的形式，打开`~/.bashrc`或者`~/.zshrc`文件，加上：
 
@@ -129,10 +129,8 @@ alias dc123='docker-compose up -d s1 s2 s3'  # 删除所有镜像
 
 ## 常见问题
 
-### Docker 使用 cron 定时任务
-
-[Docker 使用 cron 定时任务](https://www.awaimai.com/2615.html)
-
+### mysql的root密码问题
+如果发现的.env中修改了MYSQL_ROOT_PASSWORD的值，mysql镜像也重新生成了，如果密码仍为修改之前的，那是因为镜像尽管重新生成了，但数据库已储存在宿主机中了，得以原来的密码进入mysql后进行修改就行
 ### Docker 容器时间
 
 容器时间在.env 文件中配置`TZ`变量，所有支持的时区请看[时区列表·维基百科](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)或者[PHP 所支持的时区列表·PHP 官网](https://www.php.net/manual/zh/timezones.php)。
