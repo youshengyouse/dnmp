@@ -2,8 +2,8 @@
 
 ——DNMP开发环境搭建（Docker + Nginx + MySQL5.7 + PHP7.2(预装了 composer) + Redis）
 
-> laravel 官方推荐的使用[homestead](https://learnku.com/docs/laravel/6.x/homestead/5127)或[valet](https://learnku.com/docs/laravel/6.x/valet/5128)来搭建开发环境，我建议基于 docker 搭建开发环境更方便。
-> 请加 `QQ:2922800186`，验证输入 laravel
+> laravel 官方推荐的使用[homestead](https://learnku.com/docs/laravel/6.x/homestead/5127)或[valet](https://learnku.com/docs/laravel/6.x/valet/5128)来搭建开发环境，但基于 docker 搭建开发环境更方便。
+> laravel学习请加 `QQ: 2922800186`，vue学习请加`QQ: 3180555323`
 >
 > 本架构文件适用于**Windows、Linux、MacOs**
 
@@ -134,6 +134,20 @@ alias dc123='docker-compose up -d s1 s2 s3'  # 删除所有镜像
 ### Docker 容器时间
 
 容器时间在.env 文件中配置`TZ`变量，所有支持的时区请看[时区列表·维基百科](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)或者[PHP 所支持的时区列表·PHP 官网](https://www.php.net/manual/zh/timezones.php)。
+
+
+
+## 捐赠
+
+本Docker构建文件填坑，测试，文档编写，视频录制编辑，花了整整两天，你的打赏，是对我最大的鼓励
+
+![pay](./imgs/pay.jpg)
+
+
+
+
+
+
 
 ## 参考：
 
