@@ -11,7 +11,7 @@
 
 [**GitHub 地址**](https://github.com/youshengyouse/dnmp)      [**Gitee 地址**](https://gitee.com/advance/dnmp)
 
-![laravel](./imgs/laravel.jpg)   ![vue](./imgs/vue.png)
+![laravel和vue珠联璧合](./imgs/laravel_vue.jpg)
 
 
 

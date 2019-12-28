@@ -1,4 +1,0 @@
-2019/12/27 15:04:23 [warn] 1#1: conflicting server name "localhost" on 0.0.0.0:80, ignored
-2019/12/27 15:08:21 [warn] 9#9: conflicting server name "localhost" on 0.0.0.0:80, ignored
-2019/12/27 15:08:21 [notice] 9#9: signal process started
-2019/12/27 15:08:47 [notice] 17#17: signal process started
