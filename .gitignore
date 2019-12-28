@@ -3,3 +3,8 @@
 nohup.out
 bash.alias.sample
 __*
+.logs/*
+.data/composer/*
+.data/mysql5/*
+.data/php/*
+.data/redis/*
