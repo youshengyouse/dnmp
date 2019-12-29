@@ -47,6 +47,7 @@ services:
       - ${PHP_LOG_DIR}:/var/log/php
       - ${DATA_DIR}/composer:/tmp/composer
       - ../0000_laravel:/0000
+      - ${PWD}:/root
       - "hunan:/changsha"
     restart: always
     cap_add:
