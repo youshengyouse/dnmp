@@ -28,7 +28,7 @@
 3. `clone`项目：
 
    ```shell
-   $ git git@gitee.com:advance/dnmp.git
+   $ git clone git@gitee.com:advance/dnmp.git
    ```
 
 4. 如果不是`root`用户，还需将当前用户加入`docker`用户组：
