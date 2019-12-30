@@ -28,7 +28,7 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 
 # 安装 composer并改变它的cache home
-RUN curl -o /usr/bin/composer https://mirrors.aliyun.com/composer/composer.phar \
+RUN d2 \
   && chmod +x /usr/bin/composer \
   # composer也使用阿里云镜像
   && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
