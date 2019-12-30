@@ -7,7 +7,7 @@
 >
 > 本架构文件适用于**Windows、Linux、MacOs**
 
-本教程[配套视频](https://www.bilibili.com/)
+本教程[配套视频](https://www.bilibili.com/video/av81263953/)
 
 [**GitHub 地址**](https://github.com/youshengyouse/dnmp)      [**Gitee 地址**](https://gitee.com/advance/dnmp)
 

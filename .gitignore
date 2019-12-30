@@ -9,3 +9,4 @@ __*
 .data/mysql5/*
 .data/php/*
 .data/redis/*
+video_for_bilibili/*
