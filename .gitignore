@@ -3,8 +3,9 @@
 nohup.out
 bash.alias.sample
 __*
-.logs/mysql/*
-.logs/php/*
+logs/mysql/*
+logs/php/*
+logs/nginx/*
 .data/composer/*
 .data/mysql5/*
 .data/php/*

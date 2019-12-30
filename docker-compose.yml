@@ -50,6 +50,9 @@ services:
       - ../0001_vue:/0001
       - "hunan:/changsha"
     restart: always
+    ports:
+      - "8000:8000"
+      - "8001:8001"
     cap_add:
       - SYS_PTRACE
     networks:
