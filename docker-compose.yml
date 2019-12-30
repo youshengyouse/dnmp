@@ -21,8 +21,10 @@ services:
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
       - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
       - ${WWW_DIR}:/www:rw
+      - ${ROOT_DIR}:/tutorials:rw
       - ../0000_laravel:/0000
       - ../0001_vue:/0001:rw
+
     environment:
       TZ: "$TZ"
     restart: always
@@ -46,6 +48,7 @@ services:
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${PHP_LOG_DIR}:/var/log/php
       - ${DATA_DIR}/composer:/tmp/composer
+      - ${ROOT_DIR}:/tutorials:rw
       - ../0000_laravel:/0000
       - ../0001_vue:/0001
       - "hunan:/changsha"
