@@ -110,6 +110,11 @@ $ docker-compose restart s2         # 重启服务
 $ docker-compose build s2           # 构建或者重新构建服务
 $ docker-compose rm s2              # 删除并且停止php容器
 $ docker-compose down               # 停止并删除容器，网络，图像和挂载卷
+
+# 当php.ini修改了，得 docker-compose restart s2
+# 当nginx.conf修改了，得docker-compose restart s1
+# 当docker-compose.yml中哪个服务修改了，得docker-compose up -d 修改的服务名
+# 当Dockerfile修改了，得docker-compose up -d --build 修改的服务名
 ```
 
 #### 5.2 添加快捷命令
